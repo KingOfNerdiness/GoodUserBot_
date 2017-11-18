@@ -21,10 +21,10 @@ print("logging in")
 # Change settings to your own API settings
 
 reddit = praw.Reddit(user_agent='GoodUserBot v0.1',
-                  client_id='ydrNJbxnXQNwKA',
-                  client_secret='MdKa3XsrCJ7VdxWXJmRi0duizFo',
-                  username='GoodUserBot_',
-                  password='0110101')
+                  client_id='clientid,
+                  client_secret='APIprivatekey',
+                  username='username',
+                  password='password')
 
 print("Welcome /u/GoodUserBot_")
 print("defining variables")

@@ -1,0 +1,51 @@
+# Good User Bot v0.1
+# Created by: /u/whaliam
+# Import required libraries
+
+print("importing required libs")
+
+import praw
+import pdb
+import os
+import time
+import re
+import random
+from datetime import datetime
+import sys
+from setuptools.command.rotate import rotate
+
+print("creating a Reddit instance")
+print("logging in")
+
+# Define a Reddit instance
+# Change settings to your own API settings
+
+reddit = praw.Reddit(user_agent='GoodUserBot v0.1',
+                  client_id='ydrNJbxnXQNwKA',
+                  client_secret='MdKa3XsrCJ7VdxWXJmRi0duizFo',
+                  username='GoodUserBot_',
+                  password='0110101')
+
+print("Welcome /u/GoodUserBot_")
+print("defining variables")
+
+# Define variables
+# For multiple subs use ("sub1"+"sub2")
+# Change quote value to responce string
+
+username = "GoodUserBot_"
+print("setting subreddit parameters")
+subreddit = reddit.subreddit("all")
+quote = "Good User!"
+reply = (quote)
+
+print("searching for comments to reply to")
+
+for comment in subreddit.stream.comments():
+    if re.search("Good Bot", comment.body, re.IGNORECASE):
+        comment.reply(reply)
+
+print("Replied!")
+
+# Created by /u/whaliam
+# 6Ep96ck9@protonmail.com

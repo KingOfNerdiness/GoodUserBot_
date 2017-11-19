@@ -21,11 +21,11 @@ print("Logging in:")
 # Define a Reddit instance
 # Change settings to your own API settings
 
-reddit = praw.Reddit(user_agent='GoodUserBot v0.1',
-                  client_id='ydrNJbxnXQNwKA',
-                  client_secret='MdKa3XsrCJ7VdxWXJmRi0duizFo',
-                  username='GoodUserBot_',
-                  password='0110101')
+reddit = praw.Reddit(user_agent='x',
+                  client_id='x',
+                  client_secret='x',
+                  username='x',
+                  password='x')
 
 print("Welcome /u/GoodUserBot_")
 print("Defining variables:")

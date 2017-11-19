@@ -58,10 +58,11 @@ username = "GoodUserBot_"
 print("Setting subreddit parameters:")
 
 subreddit = reddit.subreddit("all")
-quote = "Good User!"
+quote = "Good User!                                                                                            [help make me better](https://github.com/whaliam/GoodUserBot_)"
 reply = (quote)
 
 print("Searching for comments to reply to:")
+
 for comment in subreddit.stream.comments():
     if re.search("Good Bot", comment.body, re.IGNORECASE):
 
@@ -71,7 +72,31 @@ for comment in subreddit.stream.comments():
 
         print("Replied!")
         print("Searching for comments to reply to:")
-        print("Cooldown")
-time.sleep(5)
+        print("Starting cooldown:")
+
+# 10 second sleep with readout
+
+        print("10")
+        time.sleep(1)
+        print("9")
+        time.sleep(1)
+        print("8")
+        time.sleep(1)
+        print("7")
+        time.sleep(1)
+        print("6")
+        time.sleep(1)
+        print("5")
+        time.sleep(1)
+        print("4")
+        time.sleep(1)
+        print("3")
+        time.sleep(1)
+        print("2")
+        time.sleep(1)
+        print("1")
+        time.sleep(1)
+        print("Seaching for new comments:")
+
 # Created by /u/whaliam
 # 6Ep96ck9@protonmail.com

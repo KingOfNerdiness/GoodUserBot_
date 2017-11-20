@@ -1,102 +1,120 @@
-# Good User Bot v0.1
-# Created by: /u/whaliam
-# Import required libraries
+import praw
+import time
+import re
+import config
 
 print("Starting /u/GoodUserBot_:")
 print("Importing required libs:")
 
-import praw
-import pdb
-import os
-import time
-import re
-import random
-from datetime import datetime
-import sys
-from setuptools.command.rotate import rotate
+path = '/home/whaliam/Desktop/GoodUserBot/commented.txt'
+
+blacklistUsers = ('Automoderator', 'friendly-bot', 'GoodBot_BadBot', 'GoodUserBot_')
 
 print("Creating a Reddit instance:")
 print("Logging in:")
 
-# Define a Reddit instance
-# Change settings to your own API settings
+def authenticate():
 
-import config
-reddit = praw.Reddit(user_agent=config.user_agent,
-                client_id=config.client_id,
-                client_secret=config.client_secret,
-                username=config.username,
-                password=config.password)
-
-
+      print('Authenticating...\n')
+      reddit = praw.Reddit(user_agent=config.user_agent,
+                        client_id=config.client_id,
+                        client_secret=config.client_secret,
+                        username=config.username,
+                        password=config.password)
+      print('Authenticated as {}\n'.format(reddit.user.me()))
+      return reddit
 print("Welcome /u/GoodUserBot_")
 print("Defining variables:")
+def run_bot(reddit):
 
-def scan():
-    for c in reddit_client.get_comments('all'):
-        if keyword not in c.body.lower():
-            continue
-        if c.author == None:
-            continue
-        if c.author.name ==bot_name:
-            continue
-        anwser(c, c.link_id[3:])
+    print('Get comments..\n')
+    for comment in reddit.subreddit('all').comments(limit = None):
+        author = str(comment.author)
 
-def answer(comment, sub_id):
-    sub = reddit_client.get_submission(submission_id=sub_id)
-    sub.replace_more_comments(limit=None,threshold=0)
-    flat_comments = praw.helpers.flatten_tree(sub.comments)
-    if len([com for com in flat_comments if com.author != None and com.author.name.lower() == bot_name.lower()]) > 0:
-        return False
-    
-# Define variables
-# For multiple subs use ("sub1"+"sub2")
-# Change quote value to response string
+        matchBLACKLIST = author not in blacklistUsers 
+        matchGOOD = re.findall('Good Bot', comment.body, re.IGNORECASE)
+        
+        if matchGOOD and matchBLACKLIST:
+        
+            #opening commented.txt
+            file_obj_r = open(path,'r')
+            try:
+                reply = 'Good user'
+            except:
+                print('debug')
+          
+            else:
 
-username = "GoodUserBot_"
+                # checking if already answered to comment or other comment in thread
+                if comment.id not in file_obj_r.read().splitlines() and comment.submission.id not in file_obj_r.read().splitlines():
+                    print('Comment is unique..replying')
+                
+                    try:
+                        comment.reply(reply)
+                    except Exception as e:
+                        print('Error encountered:')
+                        print(e)
+                        print('Continuing...')
+                    file_obj_r.close()
 
-print("Setting subreddit parameters:")
+                    file_obj_w = open(path,'a+')
+                    file_obj_w.write(comment.submission.id + '\n' + comment.id + '\n')
+                    file_obj_w.close()
+                
+                else:
+                    print('Already replied...no reply needed\n')
+                    
+            time.sleep(5)
+                        
+            print('Get comments..\n')
+            for comment in reddit.subreddit('all').comments(limit = None):
+              author = str(comment.author)
 
-subreddit = reddit.subreddit("all")
-quote = "Good User!                                                                                            [help make me better](https://github.com/whaliam/GoodUserBot_)"
-reply = (quote)
+              matchBLACKLIST = author not in blacklistUsers 
+              matchGOOD = re.findall(r"(?i)^\bgood\sbot\b", comment.body)
+              
+              if matchGOOD and matchBLACKLIST:
+        
+        	#opening commented.txt
+                  file_obj_r = open(path,'r')
+            try:
+                reply = 'Good user'
+            except:
+                print('debug')
+          
+            else:
+          			# checking if already answered to comment or other comment in thread
+                if comment.id not in file_obj_r.read().splitlines() and comment.submission.id not in file_obj_r.read().splitlines():
+                    print('Comment is unique..replying')
+                
+                    try:
+                        comment.reply(reply)
+                    except Exception as e:
+                        print('Error encountered:')
+                        print(e)
+                        print('Continuing...')
+                    file_obj_r.close()
 
-print("Searching for comments to reply to:")
+                    file_obj_w = open(path,'a+')
+                    file_obj_w.write(comment.submission.id + '\n' + comment.id + '\n')
+                    file_obj_w.close()
+                
+                else:
+                    print('Already replied...no reply needed\n')
+        
 
-for comment in subreddit.stream.comments():
-    if re.search("Good Bot", comment.body, re.IGNORECASE):
+def main():
+    reddit = authenticate()
+    while True:
+        run_bot(reddit)
 
-        print("Comment found: replying:")
 
-        comment.reply(reply)
+        
+if __name__ == '__main__':
+        main()
 
-        print("Replied!")
-        print("Searching for comments to reply to:")
-        print("Starting cooldown:")
 
-# 10 second sleep with readout
-
-        print("10")
-        time.sleep(1)
-        print("9")
-        time.sleep(1)
-        print("8")
-        time.sleep(1)
-        print("7")
-        time.sleep(1)
-        print("6")
-        time.sleep(1)
-        print("5")
-        time.sleep(1)
-        print("4")
-        time.sleep(1)
-        print("3")
-        time.sleep(1)
-        print("2")
-        time.sleep(1)
-        print("1")
-        time.sleep(1)
-        print("Seaching for new comments:")
-
-# Created by /u/whaliam
-# 6Ep96ck9@protonmail.com
+					
+                
+                    
+                

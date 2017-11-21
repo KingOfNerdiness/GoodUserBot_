@@ -13,6 +13,8 @@ blacklistUsers = ('Automoderator', 'friendly-bot', 'GoodBot_BadBot', 'GoodUserBo
 print("Creating a Reddit instance:")
 print("Logging in:")
 
+
+
 def authenticate():
 
       print('Authenticating...\n')
@@ -32,7 +34,7 @@ def run_bot(reddit):
         author = str(comment.author)
 
         matchBLACKLIST = author not in blacklistUsers 
-        matchGOOD = re.findall('Good Bot', comment.body, re.IGNORECASE)
+        matchGOOD = re.search("Good Bot", comment.body, re.IGNORECASE)
         
         if matchGOOD and matchBLACKLIST:
         
